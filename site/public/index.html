@@ -1,0 +1,111 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рецепты Онлайн</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <button onclick="window.location.href='/'" class="nav-btn">Домой</button>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Поиск рецептов...">
+                <button onclick="searchRecipes()">Поиск</button>
+            </div>
+            <button onclick="showLogin()" class="nav-btn" id="profileBtn">Личный кабинет</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Форма входа -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">×</span>
+                <h2>Вход</h2>
+                <form id="loginForm">
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="password" id="password" placeholder="Пароль" required>
+                    <button type="submit">Войти</button>
+                    <p>Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Личный кабинет -->
+        <div id="profileModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeProfileModal()">×</span>
+                <h2>Личный кабинет</h2>
+                <div id="profileInfo"></div>
+                <button onclick="logout()" class="logout-btn">Выйти</button>
+            </div>
+        </div>
+
+        <!-- Топ рецептов месяца -->
+        <section class="recipe-section">
+            <h2>Топ рецептов месяца</h2>
+            <div class="recipe-grid">
+                <div class="recipe-card" data-id="top1">
+                    <img src="https://via.placeholder.com/300x200" alt="Шоколадный торт">
+                    <div class="recipe-overlay">Шоколадный торт - Нежный и насыщенный</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Выпечка -->
+        <section class="recipe-section">
+            <h2>Выпечка</h2>
+            <div class="recipe-grid">
+                <div class="recipe-card" data-id="bake1">
+                    <img src="https://via.placeholder.com/300x200" alt="Круассаны">
+                    <div class="recipe-overlay">Круассаны - Хрустящие и воздушные</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Десерты -->
+        <section class="recipe-section">
+            <h2>Десерты</h2>
+            <div class="recipe-grid">
+                <div class="recipe-card" data-id="dessert1">
+                    <img src="https://via.placeholder.com/300x200" alt="Тирамису">
+                    <div class="recipe-overlay">Тирамису - Кремовый итальянский десерт</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Модальное окно рецепта -->
+        <div id="recipeModal" class="modal">
+            <div class="modal-content recipe-modal">
+                <span class="close" onclick="closeRecipeModal()">×</span>
+                <div id="recipeContent"></div>
+                <button id="likeBtn" class="like-btn">❤️</button>
+                <div class="calculator">
+                    <h3>Калькулятор порций</h3>
+                    <input type="number" id="mainIngredient" placeholder="Введите вашу граммовку">
+                    <button onclick="calculateIngredients()">Рассчитать</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно поиска -->
+        <div id="searchModal" class="modal">
+            <div class="modal-content recipe-modal">
+                <span class="close" onclick="closeSearchModal()">×</span>
+                <div id="searchResult"></div>
+                <button id="searchLikeBtn" class="like-btn">❤️</button>
+                <div class="calculator">
+                    <h3>Калькулятор порций</h3>
+                    <input type="number" id="searchMainIngredient" placeholder="Введите вашу граммовку">
+                    <button onclick="calculateSearchIngredients()">Рассчитать</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
