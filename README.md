@@ -6,7 +6,7 @@ https://www.figma.com/design/1nO00Cd7h5egFNcdRx0Kj6/CulinaryWebsiteProject?node-
 ## Назва проєкту: :sparkles:**Формула Смаку**:sparkles: 
 
  
-## Керівник проєкту: 
+## Керівник проєкту: Бобровицька Софія Сергіївна
 
 
 ### 1. АНОТАЦІЯ (до 10 рядків) 
