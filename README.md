@@ -191,6 +191,14 @@ https://www.figma.com/design/1nO00Cd7h5egFNcdRx0Kj6/CulinaryWebsiteProject?node-
 
 ```
 
+### Бюджет
+
+![image](https://github.com/user-attachments/assets/bebe36a0-8c6b-4030-8ca1-bb49c6d8747c)  
+
+![image](https://github.com/user-attachments/assets/b01caa57-3d71-4dc1-be62-8fe87ad72f45)
+
+
+
 ### 9. ОЦІНКА РИЗИКІВ 
 
 
