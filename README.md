@@ -278,6 +278,6 @@ https://www.figma.com/design/1nO00Cd7h5egFNcdRx0Kj6/CulinaryWebsiteProject?node-
 ### 10. КАЛЕНДАРНИЙ ПЛАН 
 
 
+![image](https://github.com/user-attachments/assets/e173a842-3ceb-4662-939f-6b7b84015ef4)
 
-![image](https://github.com/user-attachments/assets/3c927e9a-ea0b-438d-95cf-db70a2107ec3)
 
