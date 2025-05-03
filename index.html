@@ -1,111 +1,408 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Рецепты Онлайн</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Formula of Taste</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        nav {
+            background-color: #e0e0e0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        nav .right {
+            display: flex;
+            align-items: center;
+        }
+        nav input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        nav button {
+            padding: 5px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        nav button:hover {
+            background-color: #b0b0b0;
+            transform: scale(1.05);
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .section-1 {
+            position: relative;
+        }
+        .content {
+            text-align: center;
+            z-index: 1;
+        }
+        .content h1 {
+            font-size: 48px;
+            color: #333;
+        }
+        .content p {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+        }
+        .content button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+        }
+        .content button:hover {
+            background-color: #555;
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .mouse-image {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: auto;
+            transition: all 0.5s ease;
+            z-index: 1;
+        }
+        .mouse-image.sticky {
+            position: fixed;
+            bottom: auto;
+            top: 20px;
+            left: 20px;
+            transform: none;
+        }
+        .recipe-grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .recipe-card {
+            background-color: #e0f0f5;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+        }
+        .recipe-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .recipe-card h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+        .recipe-card .stats {
+            color: #666;
+            font-size: 14px;
+        }
+        .recipe-card .details-btn {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+        }
+        .recipe-card .details-btn:hover {
+            background-color: #555;
+            transform: scale(1.1) translate(-45%, -45%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .recipe-card:hover .details-btn {
+            display: block;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 1);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 600px;
+            padding: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+        .modal-content img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .modal-content .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .modal-content .close:hover {
+            color: #555;
+        }
+        .modal-content h2 {
+            margin: 0;
+        }
+        .modal-content .description {
+            font-size: 14px;
+            color: #333;
+        }
+        .modal-content .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .modal-content .buttons button {
+            padding: 5px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        .modal-content .buttons .save {
+            background-color: #e0f0f5;
+        }
+        .modal-content .buttons .save:hover {
+            background-color: #d0e0e5;
+            transform: scale(1.05);
+        }
+        .modal-content .buttons .like {
+            background-color: #f8e1e1;
+        }
+        .modal-content .buttons .like:hover {
+            background-color: #e8d1d1;
+            transform: scale(1.05);
+        }
+        .modal-content .ingredients {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .modal-content .ingredients div {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f5f7fa;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .modal-content .ingredients span {
+            font-weight: bold;
+        }
+        .section-3 {
+            padding: 40px;
+            text-align: center;
+        }
+        .section-3 h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <button onclick="window.location.href='/'" class="nav-btn">Домой</button>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Поиск рецептов...">
-                <button onclick="searchRecipes()">Поиск</button>
+    <nav>
+        <div class="left">
+            <a href="#">Main</a>
+            <a href="#">Plates</a>
+            <a href="#">Contact us</a>
+        </div>
+        <div class="right">
+            <input type="text" placeholder="Search">
+            <button>Sign in</button>
+            <button>Sign up</button>
+        </div>
+    </nav>
+    <div class="section section-1">
+        <div class="content">
+            <h1>#FormulaOfTaste</h1>
+            <p>Open up the library of recipes with our fancy portion counter tool.<br>Get the right formula for your plates</p>
+            <button onclick="document.querySelector('.section-2').scrollIntoView({ behavior: 'smooth' })">Go to the list →</button>
+        </div>
+        <img src="https://c0.klipartz.com/pngpicture/129/172/gratis-png-ratatouille-remy-illustration-ratatouille-french-cuisine-confit-byaldi-film-pixar-rata.png" alt="Remmy Mouse" class="mouse-image">
+    </div>
+    <div class="section section-2">
+        <div class="recipe-grid">
+            <div class="recipe-card">
+                <img src="https://media.istockphoto.com/id/833390070/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B0%D1%80%D0%B0%D0%B1%D1%81%D0%BA%D0%B8%D0%B5-%D0%B1%D0%BB%D1%8E%D0%B4%D0%B0-%D0%B8-%D0%BC%D0%B5%D0%B7%D0%B5.jpg?s=612x612&w=0&k=20&c=cCWo_INCEwlrW8Yg0CzolkYI2ImwhXaTiQgoWmh4pMg=" alt="Strudel with chicken and mushrooms">
+                <button class="details-btn" onclick="openModal('Strudel with chicken and mushrooms')">Get in details</button>
+                <h3>Strudel with chicken and mushrooms</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
             </div>
-            <button onclick="showLogin()" class="nav-btn" id="profileBtn">Личный кабинет</button>
-        </nav>
-    </header>
-
-    <main>
-        <!-- Форма входа -->
-        <div id="loginModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">×</span>
-                <h2>Вход</h2>
-                <form id="loginForm">
-                    <input type="email" id="email" placeholder="Email" required>
-                    <input type="password" id="password" placeholder="Пароль" required>
-                    <button type="submit">Войти</button>
-                    <p>Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
-                </form>
+            <div class="recipe-card">
+                <img src="https://media.istockphoto.com/id/833390070/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B0%D1%80%D0%B0%D0%B1%D1%81%D0%BA%D0%B8%D0%B5-%D0%B1%D0%BB%D1%8E%D0%B4%D0%B0-%D0%B8-%D0%BC%D0%B5%D0%B7%D0%B5.jpg?s=612x612&w=0&k=20&c=cCWo_INCEwlrW8Yg0CzolkYI2ImwhXaTiQgoWmh4pMg=" alt="Raspberry ice cream cake">
+                <button class="details-btn" onclick="openModal('Raspberry ice cream cake')">Get in details</button>
+                <h3>Raspberry ice cream cake</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="https://media.istockphoto.com/id/833390070/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B0%D1%80%D0%B0%D0%B1%D1%81%D0%BA%D0%B8%D0%B5-%D0%B1%D0%BB%D1%8E%D0%B4%D0%B0-%D0%B8-%D0%BC%D0%B5%D0%B7%D0%B5.jpg?s=612x612&w=0&k=20&c=cCWo_INCEwlrW8Yg0CzolkYI2ImwhXaTiQgoWmh4pMg=" alt="Puff pastry cookies for children">
+                <button class="details-btn" onclick="openModal('Puff pastry cookies for children')">Get in details</button>
+                <h3>Puff pastry cookies for children</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/breakfast1.jpg" alt="Children's breakfasts: tasty and healthy">
+                <button class="details-btn" onclick="openModal('Children\'s breakfasts: tasty and healthy')">Get in details</button>
+                <h3>Children's breakfasts: tasty and healthy</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="https://media.istockphoto.com/id/833390070/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B0%D1%80%D0%B0%D0%B1%D1%81%D0%BA%D0%B8%D0%B5-%D0%B1%D0%BB%D1%8E%D0%B4%D0%B0-%D0%B8-%D0%BC%D0%B5%D0%B7%D0%B5.jpg?s=612x612&w=0&k=20&c=cCWo_INCEwlrW8Yg0CzolkYI2ImwhXaTiQgoWmh4pMg=" alt="Strudel with chicken and mushrooms">
+                <button class="details-btn" onclick="openModal('Strudel with chicken and mushrooms')">Get in details</button>
+                <h3>Strudel with chicken and mushrooms</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/raspberry2.jpg" alt="Raspberry ice cream cake">
+                <button class="details-btn" onclick="openModal('Raspberry ice cream cake')">Get in details</button>
+                <h3>Raspberry ice cream cake</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/puff2.jpg" alt="Puff pastry cookies for children">
+                <button class="details-btn" onclick="openModal('Puff pastry cookies for children')">Get in details</button>
+                <h3>Puff pastry cookies for children</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/breakfast2.jpg" alt="Children's breakfasts: tasty and healthy">
+                <button class="details-btn" onclick="openModal('Children\'s breakfasts: tasty and healthy')">Get in details</button>
+                <h3>Children's breakfasts: tasty and healthy</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
             </div>
         </div>
-
-        <!-- Личный кабинет -->
-        <div id="profileModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeProfileModal()">×</span>
-                <h2>Личный кабинет</h2>
-                <div id="profileInfo"></div>
-                <button onclick="logout()" class="logout-btn">Выйти</button>
+    </div>
+    <div class="section section-3">
+        <h2>Contact us</h2>
+        <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+            <a href="#">Pinterest</a>
+        </div>
+    </div>
+    <div class="modal" id="recipeModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">×</span>
+            <img id="modalImage" src="" alt="Recipe Image">
+            <h2 id="modalTitle"></h2>
+            <div class="description">
+                <h4>Short description</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mollis, tortor ac finibus pellentesque, justo magna fermentum ipsum, sed fringilla metus ex vitae velit. Donec ullamcorper neque id lacus rhoncus, ut commodo ligula posuere. Aliquam tempus mollis est, eu efficitur sapien rutrum.</p>
+            </div>
+            <div class="ingredients">
+                <h4>Ingredients</h4>
+                <div><span>Magic spice</span><span>200g</span></div>
+                <div><span>Some other stuff</span><span>500g</span></div>
+                <div><span>Frierent gift potion</span><span>100g</span></div>
+                <div><span>Casting spell for creation</span><span>200g</span></div>
+            </div>
+            <div class="buttons">
+                <button class="save">Save recipe</button>
+                <button class="like">Like 💖</button>
+            </div>
+            <div class="how-to-cook">
+                <h4>How to cook</h4>
+                <ul>
+                    <li>Lorem ipsum dolor sit amet,</li>
+                    <li>Duis mollis, tortor ac finibus pellentesque, justo magna fermentum ipsum, sed fringilla metus ex vitae velit.</li>
+                    <li>Donec ullamcorper neque id</li>
+                </ul>
             </div>
         </div>
+    </div>
+    <script>
+        function openModal(title) {
+            const modal = document.getElementById('recipeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalImage = document.getElementById('modalImage');
+            modalTitle.textContent = title;
+            modalImage.src = document.querySelector(`img[alt="${title}"]`).src;
+            modal.style.display = 'flex';
+        }
 
-        <!-- Топ рецептов месяца -->
-        <section class="recipe-section">
-            <h2>Топ рецептов месяца</h2>
-            <div class="recipe-grid">
-                <div class="recipe-card" data-id="top1">
-                    <img src="https://via.placeholder.com/300x200" alt="Шоколадный торт">
-                    <div class="recipe-overlay">Шоколадный торт - Нежный и насыщенный</div>
-                </div>
-            </div>
-        </section>
+        function closeModal() {
+            const modal = document.getElementById('recipeModal');
+            modal.style.display = 'none';
+        }
 
-        <!-- Выпечка -->
-        <section class="recipe-section">
-            <h2>Выпечка</h2>
-            <div class="recipe-grid">
-                <div class="recipe-card" data-id="bake1">
-                    <img src="https://via.placeholder.com/300x200" alt="Круассаны">
-                    <div class="recipe-overlay">Круассаны - Хрустящие и воздушные</div>
-                </div>
-            </div>
-        </section>
+        window.addEventListener('scroll', function() {
+            const mouseImage = document.querySelector('.mouse-image');
+            const section1 = document.querySelector('.section-1');
+            const section1Bottom = section1.getBoundingClientRect().bottom;
 
-        <!-- Десерты -->
-        <section class="recipe-section">
-            <h2>Десерты</h2>
-            <div class="recipe-grid">
-                <div class="recipe-card" data-id="dessert1">
-                    <img src="https://via.placeholder.com/300x200" alt="Тирамису">
-                    <div class="recipe-overlay">Тирамису - Кремовый итальянский десерт</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Модальное окно рецепта -->
-        <div id="recipeModal" class="modal">
-            <div class="modal-content recipe-modal">
-                <span class="close" onclick="closeRecipeModal()">×</span>
-                <div id="recipeContent"></div>
-                <button id="likeBtn" class="like-btn">❤️</button>
-                <div class="calculator">
-                    <h3>Калькулятор порций</h3>
-                    <input type="number" id="mainIngredient" placeholder="Введите вашу граммовку">
-                    <button onclick="calculateIngredients()">Рассчитать</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Модальное окно поиска -->
-        <div id="searchModal" class="modal">
-            <div class="modal-content recipe-modal">
-                <span class="close" onclick="closeSearchModal()">×</span>
-                <div id="searchResult"></div>
-                <button id="searchLikeBtn" class="like-btn">❤️</button>
-                <div class="calculator">
-                    <h3>Калькулятор порций</h3>
-                    <input type="number" id="searchMainIngredient" placeholder="Введите вашу граммовку">
-                    <button onclick="calculateSearchIngredients()">Рассчитать</button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script src="script.js"></script>
+            if (section1Bottom < 0) {
+                mouseImage.classList.add('sticky');
+            } else {
+                mouseImage.classList.remove('sticky');
+            }
+        });
+    </script>
 </body>
 </html>
