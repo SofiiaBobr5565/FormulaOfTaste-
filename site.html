@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula of Taste</title>
+    <style>
+        body {
+            font-family: 'Instrument Sans';
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        nav {
+            font-family: 'Instrument Sans';
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+            nav a {
+                font-family: 'Instrument Sans';
+                color: #fff;
+                text-decoration: none;
+                margin: 0 15px;
+                font-size: 16px;
+                transition: color 0.3s ease;
+            }
+
+                nav a:hover {
+                    color: #ddd;
+                }
+
+            nav .right {
+                display: flex;
+                align-items: center;
+            }
+
+            nav input {
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin-right: 10px;
+                background-color: rgba(255, 255, 255, 0.2);
+                color: #fff;
+            }
+
+            nav button {
+                font-family: 'Instrument Sans';
+                font-weight: bold;
+                padding: 5px 15px;
+                border: none;
+                border-radius: 5px;
+                background-color: #444;
+                color: #fff;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.1s ease;
+            }
+
+                nav button:hover {
+                    background-color: #666;
+                    transform: scale(1.05);
+                }
+
+        .section {
+            font-family: 'Instrument Sans';
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding-top: 60px;
+        }
+
+        .section-1 {
+            background-image: url('path/to/blurred-food-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content {
+            font-family: 'Instrument Sans';
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+
+            .content h1 {
+                font-family: 'Instrument Sans';
+                font-size: 48px;
+                color: black;
+                margin: 0;
+            }
+
+            .content p {
+                font-family: 'Instrument Sans';
+                font-size: 18px;
+                color: #666;
+                font-style: italic;
+                margin: 10px 0;
+            }
+
+            .content button {
+                height:6vh;
+                padding-left:2vw;
+                padding-right:2vw;
+                margin-top: 20px;
+              
+                background-color: #333;
+                color: white;
+                border: none;
+                border-radius: 40px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+            }
+
+                .content button:hover {
+                    background-color: #555;
+                    transform: scale(1.05);
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                }
+
+        .decor-image {
+            position: absolute;
+            width: 14vw;
+            height: auto;
+            border-radius:30px;
+            z-index: 0;
+            filter: drop-shadow(0px 0px 20px rgba(0,0,0,0.5));
+
+        }
+
+            .decor-image.top-left {
+                top: 10%;
+                left: 10%;
+                transform: rotate(-25deg);
+            }
+
+            .decor-image.top-right {
+                top: 15%;
+                right: 10%;
+                transform: rotate(30deg);
+            }
+
+            .decor-image.bottom-left {
+                bottom: 10%;
+                left: 15%;
+                transform: rotate(22deg);
+            }
+
+            .decor-image.bottom-right {
+                bottom: 15%;
+                right: 15%;
+                transform: rotate(-25deg);
+            }
+
+        .mouse-image {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: auto;
+            transition: all 0.5s ease;
+            z-index: 1;
+            margin-top: 20px;
+        }
+
+            .mouse-image.sticky {
+                position: fixed;
+                bottom: auto;
+                top: 50%;
+                left: 20px;
+                transform: translateY(-50%);
+            }
+
+        .recipe-grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .recipe-card {
+            background-color: #e0f0f5;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+        }
+
+            .recipe-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .recipe-card h3 {
+                margin: 10px 0;
+                color: #333;
+            }
+
+            .recipe-card .stats {
+                color: #666;
+                font-size: 14px;
+            }
+
+            .recipe-card .details-btn {
+                display: none;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 10px 20px;
+                background-color: #333;
+                color: white;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+            }
+
+                .recipe-card .details-btn:hover {
+                    background-color: #555;
+                    transform: scale(1.1) translate(-45%, -45%);
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                }
+
+            .recipe-card:hover .details-btn {
+                display: block;
+            }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            width: 1000px;
+            padding: 30px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+            .modal-content img {
+                width: 250px;
+                height: 250px;
+                object-fit: cover;
+                border-radius: 10px;
+                flex-shrink: 0;
+            }
+
+            .modal-content .close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 24px;
+                cursor: pointer;
+                color: #666;
+                transition: color 0.3s ease;
+            }
+
+                .modal-content .close:hover {
+                    color: #333;
+                }
+
+            .modal-content .text-content {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .modal-content h2 {
+                margin: 0;
+                font-size: 28px;
+                color: #333;
+            }
+
+            .modal-content .description {
+                font-size: 16px;
+                color: #666;
+            }
+
+            .modal-content .buttons {
+                display: flex;
+                justify-content: flex-start;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+                .modal-content .buttons button {
+                    padding: 8px 15px;
+                    border: none;
+                    border-radius: 15px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: bold;
+                    transition: all 0.3s ease;
+                    width: 100px;
+                }
+
+                .modal-content .buttons .save {
+                    background-color: #b0d0e0;
+                    color: #fff;
+                    border: 2px solid #90b0c0;
+                }
+
+                    .modal-content .buttons .save:hover {
+                        background-color: #90b0c0;
+                        transform: translateY(-2px);
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                    }
+
+                .modal-content .buttons .like {
+                    background-color: #f0b0b0;
+                    color: #fff;
+                    border: 2px solid #d09090;
+                }
+
+                    .modal-content .buttons .like:hover {
+                        background-color: #d09090;
+                        transform: translateY(-2px);
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                    }
+
+            .modal-content .ingredients {
+                margin: 10px 0;
+            }
+
+                .modal-content .ingredients h4 {
+                    font-size: 18px;
+                    color: #333;
+                    margin-bottom: 10px;
+                }
+
+                .modal-content .ingredients div {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: #e0e8f0;
+                    padding: 8px 15px;
+                    border-radius: 5px;
+                    margin-bottom: 8px;
+                    max-width: 350px;
+                    height: 40px;
+                    font-size: 16px;
+                    line-height: 1.5;
+                }
+
+                .modal-content .ingredients span {
+                    flex-grow: 1;
+                    text-align: left;
+                }
+
+                .modal-content .ingredients input {
+                    width: 80px;
+                    height: 30px;
+                    padding: 4px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    text-align: center;
+                    background-color: #fff;
+                    font-size: 16px;
+                }
+
+            .modal-content .how-to-cook {
+                margin-top: 10px;
+            }
+
+                .modal-content .how-to-cook h4 {
+                    font-size: 18px;
+                    color: #333;
+                    margin-bottom: 10px;
+                }
+
+                .modal-content .how-to-cook ul {
+                    list-style-type: disc;
+                    padding-left: 20px;
+                    color: #666;
+                    font-size: 16px;
+                }
+
+                .modal-content .how-to-cook li {
+                    margin-bottom: 8px;
+                }
+
+        .modal-login-signup .modal-content {
+            background-color: #fff;
+            border-radius: 10px;
+            width: 650px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+            .modal-login-signup .modal-content h2 {
+                margin: 0 0 20px;
+                font-size: 24px;
+                color: #333;
+            }
+
+            .modal-login-signup .modal-content input {
+                width: 80%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            .modal-login-signup .modal-content button {
+                padding: 10px 40px;
+                border: none;
+                border-radius: 5px;
+                background-color: #333;
+                color: #fff;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                .modal-login-signup .modal-content button:hover {
+                    background-color: #555;
+                }
+
+            .modal-login-signup .modal-content .close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 24px;
+                cursor: pointer;
+                color: #666;
+                transition: color 0.3s ease;
+            }
+
+                .modal-login-signup .modal-content .close:hover {
+                    color: #333;
+                }
+
+        .section-2, .section-3 {
+            padding: 40px;
+            text-align: center;
+        }
+
+            .section-2 h2, .section-3 h2 {
+                font-size: 32px;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+            .social-links img {
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+
+                .social-links img:hover {
+                    transform: scale(1.1);
+                }
+
+            .social-links a {
+                color: #333;
+                text-decoration: none;
+                font-size: 18px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+        
+            }
+    </style>
+</head>
+
+<script>
+    function ratMoves() {
+        console.log("DODODO");
+        let element = document.querySelector(".MainTitle");
+        let rect = element.getBoundingClientRect();
+        let rat = document.querySelector(".rat");
+        if (rect.top < document.documentElement.clientHeight/5) {
+            rat.style.left = "5vw";
+            rat.style.bottom = "2vh";
+            
+        } else {
+            rat.style.left = "50vw";
+            rat.style.bottom = "-5vh";
+        }
+    }
+</script>
+<body onscroll="ratMoves()">
+    
+    <img src="ratatuille.png" class="rat">
+    <style>
+        .rat {
+            height: 30vh;
+            position: fixed;
+            bottom: -5vh;
+            z-index: -100;
+            left: 50vw;
+            transform: translate(-50%, 0);
+            transition: all 0.6s ease-in-out;
+        }
+    </style>
+    <nav style="height:5vh;">
+        <div class="left"  style="padding-left:5%">
+            <a href="#main" style="padding-right:2vw">Main</a>
+            <a href="#plates" style="padding-right:2vw">Plates</a>
+            <a href="#contact" style="padding-right:2vw">Contact us</a>
+        </div>
+        <div class="right" style="padding-right:5%">
+            <input type="text" placeholder="Search">
+            <button style="height:3.5vh; width:5vw; margin-right:5px;" onclick="openModal('login')">Sign in</button>
+            <button style="height: 3.5vh; width: 5vw; margin-right: 5px; " onclick="openModal('signup')">Sign up</button>
+        </div>
+    </nav>
+    <div class="section section-1" id="main">
+        <div class="content">
+            <h1 style="padding-bottom:5vh;" class="MainTitle">#FormulaOfTaste</h1>
+            <p>Open up the library of recipes with our fancy portion counter tool.<br>Get the right formula for your plates</p>
+            <button onclick="document.querySelector('.section-2').scrollIntoView({ behavior: 'smooth' })">Go to the list →</button>
+        </div>
+        <img src="path/to/remmy-mouse.png" alt="Remmy Mouse" class="mouse-image" style="display:none;">
+        <img src="pic_1.png" alt="Decor Image" class="decor-image top-left">
+        <img src="pic_2.png" alt="Decor Image" class="decor-image top-right">
+        <img src="pic_3.png" alt="Decor Image" class="decor-image bottom-left">
+        <img src="pic_4.png" alt="Decor Image" class="decor-image bottom-right">
+    </div>
+    <div class="section section-2" id="plates">
+        <h2>Plates</h2>
+        <div class="recipe-grid">
+            <div class="recipe-card">
+                <img src="path/to/chicken-parmesan.jpg" alt="Chicken Parmesan">
+                <button class="details-btn" onclick="openModal('Chicken Parmesan')">Get in details</button>
+                <h3>Chicken Parmesan</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/lasagna.jpg" alt="Lasagna">
+                <button class="details-btn" onclick="openModal('Lasagna')">Get in details</button>
+                <h3>Lasagna</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/sushi-rolls.jpg" alt="Sushi Rolls">
+                <button class="details-btn" onclick="openModal('Sushi Rolls')">Get in details</button>
+                <h3>Sushi Rolls</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/fruit-tart.jpg" alt="Fruit Tart">
+                <button class="details-btn" onclick="openModal('Fruit Tart')">Get in details</button>
+                <h3>Fruit Tart</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/beef-stew.jpg" alt="Beef Stew">
+                <button class="details-btn" onclick="openModal('Beef Stew')">Get in details</button>
+                <h3>Beef Stew</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/pasta-carbonara.jpg" alt="Pasta Carbonara">
+                <button class="details-btn" onclick="openModal('Pasta Carbonara')">Get in details</button>
+                <h3>Pasta Carbonara</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/ceviche.jpg" alt="Ceviche">
+                <button class="details-btn" onclick="openModal('Ceviche')">Get in details</button>
+                <h3>Ceviche</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+            <div class="recipe-card">
+                <img src="path/to/chocolate-cake.jpg" alt="Chocolate Cake">
+                <button class="details-btn" onclick="openModal('Chocolate Cake')">Get in details</button>
+                <h3>Chocolate Cake</h3>
+                <div class="stats">👁️ Views: 22312 💖 Likes: 322</div>
+            </div>
+        </div>
+    </div>
+    <div class="section section-3" id="contact">
+        <h2>Contact us</h2>
+        <div class="social-links">
+            <a href="#"><img src="path/to/facebook.png" alt="Facebook"><span>Facebook</span></a>
+            <a href="#"><img src="path/to/instagram.png" alt="Instagram"><span>Instagram</span></a>
+            <a href="#"><img src="path/to/twitter.png" alt="Twitter"><span>Twitter</span></a>
+            <a href="#"><img src="path/to/pinterest.png" alt="Pinterest"><span>Pinterest</span></a>
+        </div>
+    </div>
+    <div class="modal" id="recipeModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('recipe')">Close ×</span>
+            <img id="modalImage" src="" alt="Recipe Image">
+            <div class="text-content">
+                <h2 id="modalTitle"></h2>
+                <div class="description">
+                    <h4>Short description</h4>
+                    <p id="modalDescription"></p>
+                </div>
+                <div class="ingredients">
+                    <h4>Ingredients</h4>
+                    <div id="ingredientList"></div>
+                </div>
+                <div class="buttons">
+                    <button class="save">Save recipe</button>
+                    <button class="like">Like</button>
+                </div>
+                <div class="how-to-cook">
+                    <h4>How to cook</h4>
+                    <ul id="cookingSteps"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-login-signup" id="loginModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('login')">×</span>
+            <h2>Sign In</h2>
+            <input type="text" placeholder="Username or Email">
+            <input type="password" placeholder="Password">
+            <button onclick="closeModal('login')">Login</button>
+        </div>
+    </div>
+    <div class="modal modal-login-signup" id="signupModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signup')">×</span>
+            <h2>Sign Up</h2>
+            <input type="text" placeholder="Username">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <button onclick="closeModal('signup')">Register</button>
+        </div>
+    </div>
+    <script src="calculator.js"></script>
+</body>
+</html>
